@@ -1,0 +1,4 @@
+add to app.js
+
+const routes = require('./server/routes/user');
+app.use('/', routes);
