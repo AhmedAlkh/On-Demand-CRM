@@ -19,10 +19,12 @@ exports.view = (req, res) => {
     connection.query('SELECT * FROM user', (err, rows) => {
         connection.release();
         if (!err) {
-            res.render('home');
+            res.render('home', { rows });
         } else {
             console.log(err);
         }
+
+        console.log('Data from user table: \n', rows);
     });
   });
 };
