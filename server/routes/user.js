@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const userController = require('../controllers/userController');
 
-//Router
-router.get('', (req, res) => {
-    res.render('home');
-});
+
+router.get('/', userController.view);
 
 module.exports = router;
