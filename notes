@@ -1,15 +1,3 @@
-add to app.js
-
-const routes = require('./server/routes/user');
-app.use('/', routes);
-
-========================
-
-add to home.handlebars
-
-{{#each rows}}
-{{/each}}
-
 Update columns
 
 this.id
