@@ -1,9 +1,3 @@
--- Drop the database if exists
-DROP DATABASE IF EXISTS customer_list;
-
--- CREATE THE DATABASE
-CREATE DATABASE customer_list;
-
 CREATE TABLE `customers` (
 	`id` INT NOT NULL AUTO_INCREMENT,
 	`first_name` VARCHAR(30) NOT NULL,
