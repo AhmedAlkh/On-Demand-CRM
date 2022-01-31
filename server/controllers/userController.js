@@ -32,5 +32,22 @@ exports.view = (req, res) => {
 // search user
 exports.find = function(req,res)
 {
-  let searchIt = req.body.search;
-}
+  pool.getConnection((err, connection) => {
+    if (err) throw err; // not connected!
+    console.log("Connected as ID " + connection.threadId);
+
+    let searchIt = req.body.search;
+
+    // User connection
+    connection.query('SELECT * FROM user', (err, rows) => {
+        connection.release();
+        if (!err) {
+            res.render('index', { rows });
+        } else {
+            console.log(err);
+        }
+
+        console.log('Data from user table: \n', rows);
+    });
+  });
+};
