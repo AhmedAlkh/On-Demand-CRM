@@ -48,6 +48,9 @@ app.get('', (req, res) => {
       res.render('index');
 })
 
+// Tell app where routes are
+const routes = require('./server/routes/user');
+app.use('/', routes);
 
 // Starts the server to begin listening//
 
