@@ -28,3 +28,9 @@ exports.view = (req, res) => {
     });
   });
 };
+
+// search user
+exports.find = function(req,res)
+{
+  let searchIt = req.body.search;
+}
