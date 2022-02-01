@@ -16,7 +16,7 @@ exports.view = (req, res) => {
     console.log("Connected as ID " + connection.threadId);
 
     // User connection
-    connection.query('SELECT * FROM user', (err, rows) => {
+    connection.query('SELECT * FROM customers', (err, rows) => {
         connection.release();
         if (!err) {
             res.render('home', { rows });
@@ -39,7 +39,7 @@ exports.find = function(req,res)
     let searchIt = req.body.search;
 
     // User connection
-    connection.query('SELECT * FROM user', ['%' + searchIt + '%', '%' + searchIt+ '%'], (err, rows) => {
+    connection.query('SELECT * FROM customers', ['%' + searchIt + '%', '%' + searchIt+ '%'], (err, rows) => {
         connection.release();
         if (!err) {
             res.render('index', { rows });
