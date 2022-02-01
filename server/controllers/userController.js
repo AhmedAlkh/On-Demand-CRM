@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
 // Connection Pool
 const pool = mysql.createPool({
@@ -16,10 +16,33 @@ exports.view = (req, res) => {
     console.log("Connected as ID " + connection.threadId);
 
     // User connection
-    connection.query('SELECT * FROM user', (err, rows) => {
+    connection.query('SELECT * FROM customers', (err, rows) => {
         connection.release();
         if (!err) {
             res.render('home', { rows });
+        } else {
+            console.log(err);
+        }
+
+        console.log('Data from user table: \n', rows);
+    });
+  });
+};
+
+// search user
+exports.find = function(req,res)
+{
+  pool.getConnection((err, connection) => {
+    if (err) throw err; // not connected!
+    console.log("Connected as ID " + connection.threadId);
+
+    let searchIt = req.body.search;
+
+    // User connection
+    connection.query('SELECT * FROM customers', ['%' + searchIt + '%', '%' + searchIt+ '%'], (err, rows) => {
+        connection.release();
+        if (!err) {
+            res.render('index', { rows });
         } else {
             console.log(err);
         }
