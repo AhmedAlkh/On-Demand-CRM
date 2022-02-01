@@ -39,7 +39,7 @@ exports.find = function(req,res)
     let searchIt = req.body.search;
 
     // User connection
-    connection.query('SELECT * FROM user', (err, rows) => {
+    connection.query('SELECT * FROM user', ['%' + searchIt + '%', '%' + searchIt+ '%'], (err, rows) => {
         connection.release();
         if (!err) {
             res.render('index', { rows });
