@@ -4,10 +4,6 @@
     "dotenv": "^14.3.2",
     "express": "^4.17.2",
     "express-handlebars": "^6.0.2",
-<<<<<<< HEAD
-=======
-    "mysql": "^2.18.1",
->>>>>>> feature/styling
     "mysql2": "^2.3.3",
     "sequelize": "^6.14.1"
   },
