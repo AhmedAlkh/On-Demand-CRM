@@ -73,7 +73,43 @@ exports.edit = (req,res) => {
             console.log(err);
         }
 
-        console.log('Data from user table: \n', rows);
+        console.log('Data from customers table: \n', rows);
+    });
+  });
+}
+
+// Update users
+exports.update = (req,res) => {
+const { first_name, last_name, industry, job_title, website, email, phone_number, instagram, linkedin, notes } = req.body;
+
+  pool.getConnection((err, connection) => {
+    if(err) throw err; // not connected
+    console.log('Connected as ID ' + connection.threadId);
+      // Customer connection
+      connection.query('UPDATE customners SET first_name = ?, last_name = ?, industry =?, job_title = ?, website = ?, email = ?, phone_number = ?, instagram = ?, linkedin = ?, notes = ? WHERE id = ?', [first_name, last_name, industry, job_title, website, email, phone_number, instagram, linkedin, notes, req.params.id], (err, rows) => {
+        connection.release();
+        if (!err) {
+          pool.getConnection((err, connection) => {
+            if(err) throw err; // not connected
+            console.log('Connected as ID ' + connection.threadId);
+              // User connection
+              connection.query('SELECT * FROM customers WHERE id = ?', [req.params.id], (err, rows) => {
+                connection.release();
+                if (!err) {
+                    res.render('editUser', { rows, alert: `${first_name} has been updated`});
+                } else {
+                    console.log(err);
+                }
+        
+                console.log('Data from customers table: \n', rows);
+            });
+          });
+
+        } else {
+            console.log(err);
+        }
+
+        console.log('Data from customers table: \n', rows);
     });
   });
 }
