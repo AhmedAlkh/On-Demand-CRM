@@ -51,3 +51,9 @@ exports.find = function(req,res)
     });
   });
 };
+
+// Adding new users
+exports.form = function(req,res)
+{
+  res.render('addUser');
+};
