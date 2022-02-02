@@ -52,11 +52,16 @@ exports.find = function(req,res)
   });
 };
 
-// Adding new users
 exports.form = function(req,res)
 {
-  const { first_name, last_name, industry, job_title, website, email, phone_number, instagram, linkedin, notes } = req.body;
   res.render('addUser');
+}
+
+// Adding new users
+exports.create = function(req,res)
+{
+  const { first_name, last_name, industry, job_title, website, email, phone_number, instagram, linkedin, notes } = req.body;
+
   pool.getConnection((err, connection) => {
     if (err) throw err; // not connected!
     console.log("Connected as ID " + connection.threadId);
@@ -64,10 +69,10 @@ exports.form = function(req,res)
     let searchIt = req.body.search;
 
     // User connection
-    connection.query('INSERT INTO user SET first_name = ?',[first_name], (err, rows) => {
+    connection.query('INSERT INTO user SET first_name = ?, last_name = ?, industry = ?, job_title = ?, website = ?, email = ?, phone_number = ?, instagram = ?, linkedin = ?, notes',[first_name, last_name, industry, job_title, website, email, phone_number, instagram, linkedin, notes], (err, rows) => {
         connection.release();
         if (!err) {
-            res.render('addUser', { rows });
+            res.render('addUser');
         } else {
             console.log(err);
         }
