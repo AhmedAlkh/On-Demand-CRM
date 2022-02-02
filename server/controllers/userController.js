@@ -69,7 +69,7 @@ exports.create = function(req,res)
     let searchIt = req.body.search;
 
     // User connection
-    connection.query('INSERT INTO user SET first_name = ?, last_name = ?, industry = ?, job_title = ?, website = ?, email = ?, phone_number = ?, instagram = ?, linkedin = ?, notes = ?',[first_name, last_name, industry, job_title, website, email, phone_number, instagram, linkedin, notes], (err, rows) => {
+    connection.query('INSERT INTO customers SET first_name = ?, last_name = ?, industry = ?, job_title = ?, website = ?, email = ?, phone_number = ?, instagram = ?, linkedin = ?, notes = ?',[first_name, last_name, industry, job_title, website, email, phone_number, instagram, linkedin, notes], (err, rows) => {
         connection.release();
         if (!err) {
             res.render('addUser');
