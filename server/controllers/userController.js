@@ -39,7 +39,7 @@ exports.find = function(req,res)
     let searchIt = req.body.search;
 
     // User connection
-    connection.query('SELECT * FROM customers', ['%' + searchIt + '%', '%' + searchIt+ '%'], (err, rows) => {
+    connection.query('SELECT * FROM customers WHERE customers.id LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR industry LIKE ? OR job_title LIKE ? OR website LIKE ? OR email LIKE ? OR phone_number LIKE ? OR instagram LIKE? OR linkedin LIKE ? OR notes LIKE ?', ['%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%'], (err, rows) => {
         connection.release();
         if (!err) {
             res.render('index', { rows });
@@ -47,7 +47,7 @@ exports.find = function(req,res)
             console.log(err);
         }
 
-        console.log('Data from user table: \n', rows);
+        console.log('Data from customers: \n', rows);
     });
   });
 };
