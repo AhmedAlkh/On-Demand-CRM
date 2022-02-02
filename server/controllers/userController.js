@@ -9,7 +9,7 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
 });
 
-// View users
+// View customers
 exports.view = (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) throw err; // not connected!
@@ -29,7 +29,7 @@ exports.view = (req, res) => {
   });
 };
 
-// search user
+// search customers
 exports.find = function(req,res)
 {
   pool.getConnection((err, connection) => {
@@ -38,7 +38,7 @@ exports.find = function(req,res)
 
     let searchIt = req.body.search;
 
-    // User connection
+    // Customers connection
     connection.query('SELECT * FROM customers WHERE customers.id LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR industry LIKE ? OR job_title LIKE ? OR website LIKE ? OR email LIKE ? OR phone_number LIKE ? OR instagram LIKE? OR linkedin LIKE ? OR notes LIKE ?', ['%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%'], (err, rows) => {
         connection.release();
         if (!err) {
@@ -52,13 +52,13 @@ exports.find = function(req,res)
   });
 };
 
-// Adding new users
+// Adding new customers
 exports.form = function(req,res)
 {
   res.render('addUser');
 };
 
-// Edit users
+// Edit customers
 exports.edit = (req,res) => {
 
   pool.getConnection((err, connection) => {
@@ -78,7 +78,7 @@ exports.edit = (req,res) => {
   });
 }
 
-// Update users
+// Update customers
 exports.update = (req,res) => {
 const { first_name, last_name, industry, job_title, website, email, phone_number, instagram, linkedin, notes } = req.body;
 
@@ -105,6 +105,26 @@ const { first_name, last_name, industry, job_title, website, email, phone_number
             });
           });
 
+        } else {
+            console.log(err);
+        }
+
+        console.log('Data from customers table: \n', rows);
+    });
+  });
+}
+
+// Delete Customers
+exports.delete = (req,res) => {
+
+  pool.getConnection((err, connection) => {
+    if(err) throw err; // not connected
+    console.log('Connected as ID ' + connection.threadId);
+      // User connection
+      connection.query('DELETE FROM customers WHERE id = ?', [req.params.id], (err, rows) => {
+        connection.release();
+        if (!err) {
+            res.reqirect('/');
         } else {
             console.log(err);
         }
