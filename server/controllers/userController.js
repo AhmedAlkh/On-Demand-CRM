@@ -9,7 +9,7 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
 });
 
-// View customers
+// View users
 exports.view = (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) throw err; // not connected!
@@ -29,7 +29,7 @@ exports.view = (req, res) => {
   });
 };
 
-// search customers
+// search user
 exports.find = function(req,res)
 {
   pool.getConnection((err, connection) => {
@@ -38,7 +38,7 @@ exports.find = function(req,res)
 
     let searchIt = req.body.search;
 
-    // Customers connection
+    // User connection
     connection.query('SELECT * FROM customers WHERE customers.id LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR industry LIKE ? OR job_title LIKE ? OR website LIKE ? OR email LIKE ? OR phone_number LIKE ? OR instagram LIKE? OR linkedin LIKE ? OR notes LIKE ?', ['%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%'], (err, rows) => {
         connection.release();
         if (!err) {
@@ -52,10 +52,34 @@ exports.find = function(req,res)
   });
 };
 
-// Adding new customers
 exports.form = function(req,res)
 {
   res.render('addUser');
+}
+
+// Adding new users
+exports.create = function(req,res)
+{
+  const { first_name, last_name, industry, job_title, website, email, phone_number, instagram, linkedin, notes } = req.body;
+
+  pool.getConnection((err, connection) => {
+    if (err) throw err; // not connected!
+    console.log("Connected as ID " + connection.threadId);
+
+    let searchIt = req.body.search;
+
+    // User connection
+    connection.query('INSERT INTO customers SET first_name = ?, last_name = ?, industry = ?, job_title = ?, website = ?, email = ?, phone_number = ?, instagram = ?, linkedin = ?, notes = ?',[first_name, last_name, industry, job_title, website, email, phone_number, instagram, linkedin, notes], (err, rows) => {
+        connection.release();
+        if (!err) {
+            res.render('addUser');
+        } else {
+            console.log(err);
+        }
+
+        console.log('Data from customers: \n', rows);
+    });
+  });
 };
 
 // Edit customers
@@ -86,7 +110,7 @@ const { first_name, last_name, industry, job_title, website, email, phone_number
     if(err) throw err; // not connected
     console.log('Connected as ID ' + connection.threadId);
       // Customer connection
-      connection.query('UPDATE customners SET first_name = ?, last_name = ?, industry =?, job_title = ?, website = ?, email = ?, phone_number = ?, instagram = ?, linkedin = ?, notes = ? WHERE id = ?', [first_name, last_name, industry, job_title, website, email, phone_number, instagram, linkedin, notes, req.params.id], (err, rows) => {
+      connection.query('UPDATE customers SET first_name = ?, last_name = ?, industry =?, job_title = ?, website = ?, email = ?, phone_number = ?, instagram = ?, linkedin = ?, notes = ? WHERE id = ?', [first_name, last_name, industry, job_title, website, email, phone_number, instagram, linkedin, notes, req.params.id], (err, rows) => {
         connection.release();
         if (!err) {
           pool.getConnection((err, connection) => {
@@ -96,7 +120,7 @@ const { first_name, last_name, industry, job_title, website, email, phone_number
               connection.query('SELECT * FROM customers WHERE id = ?', [req.params.id], (err, rows) => {
                 connection.release();
                 if (!err) {
-                    res.render('editUser', { rows, alert: `${first_name} has been updated`});
+                    res.render('edituser', { rows, alert: `${first_name} has been updated`});
                 } else {
                     console.log(err);
                 }
@@ -124,7 +148,7 @@ exports.delete = (req,res) => {
       connection.query('DELETE FROM customers WHERE id = ?', [req.params.id], (err, rows) => {
         connection.release();
         if (!err) {
-            res.reqirect('/');
+            res.redirect('/');
         } else {
             console.log(err);
         }
