@@ -49,7 +49,7 @@ app.get('', (req, res) => {
 })
 
 // Tell app where routes are
-const routes = require('./server/routes/user');
+const routes = require('./server/models/user');
 app.use('/', routes);
 
 // Starts the server to begin listening//
