@@ -52,5 +52,5 @@ On-Demand CRM can be used to see, input and extract data on a particular client 
   
   ## Questions
   
-  If you have any questions about this project, please contact me via email at 
-  
+  If you have any questions about this project, please contact me via email at shaynemganness@gmail.com, evangelodamianos@gmail.com, alkhatib_ahmed1995@hotmail.com, 
+  elbandingo@protonmail.com and victoria.tsitskishvili@gmail.com 
