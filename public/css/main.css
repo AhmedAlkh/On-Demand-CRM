@@ -1,10 +1,12 @@
 a.navbar-brand {
-
+    color: #198754;
     font-family: 'Quintessential', cursive;
 
 }
 
- 
+a.navbar-brand:hover {
+    color: white;
+}
 
 button {
 
@@ -24,10 +26,14 @@ tr {
 
 .navbar {
 
-    background-color: #5233FF;
+    background-color: #414141;
 
     /* other option  */
 
     /* bg-primary bg-gradient  */
 
+}
+
+.add-customer {
+    font-family: 'Quintessential', cursive;
 }

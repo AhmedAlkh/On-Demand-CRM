@@ -157,3 +157,23 @@ exports.delete = (req,res) => {
     });
   });
 }
+
+// view a customers profile
+exports.profile = (req, res) => {
+  pool.getConnection((err, connection) => {
+    if (err) throw err; // not connected!
+    console.log("Connected as ID " + connection.threadId);
+
+    // User connection
+    connection.query('SELECT * FROM customers WHERE id = ?', [req.params.id], (err, rows) => {
+        connection.release();
+        if (!err) {
+            res.render('viewCustomer', { rows });
+        } else {
+            console.log(err);
+        }
+
+        console.log('Data from user table: \n', rows);
+    });
+  });
+};
