@@ -28,6 +28,7 @@ On-Demand CRM can be used to see, input and extract data on a particular client 
   - Express Handlebars
   - Body-Parser
   - MySQL
+  - Passport - Express-compatible authentication middleware for Node.js.
   
   ## About
   
