@@ -116,7 +116,7 @@ const { first_name, last_name, industry, job_title, website, email, phone_number
               connection.query('SELECT * FROM customers WHERE id = ?', [req.params.id], (err, rows) => {
                 connection.release();
                 if (!err) {
-                    res.render('edituser', { rows, alert: `${first_name} has been updated`});
+                    res.render('editUser', { rows, alert: `${first_name} has been updated`});
                 } else {
                     console.log(err);
                 }
