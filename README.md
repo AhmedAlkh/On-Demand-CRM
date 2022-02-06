@@ -5,6 +5,9 @@ https://mysterious-badlands-54283.herokuapp.com/
 ## GitHub URL
 https://github.com/AhmedAlkh/On-Demand-CRM
 
+## Link to a Dashboard screenshot
+https://github.com/AhmedAlkh/On-Demand-CRM/blob/e6d8807253b93a404c46fb94dbd3aa3acccf235c/On-Demand%20CRM.png
+
   ## Description
 On-Demand CRM can be used to see, input and extract data on a particular client profile. The application could be used as a a prospecting and storing tool to keep your list of potential clients orginized. 
 
