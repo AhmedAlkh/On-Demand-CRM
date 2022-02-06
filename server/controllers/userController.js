@@ -15,7 +15,7 @@ exports.view = (req, res) => {
     connection.query('SELECT * FROM customers', (err, rows) => {
         connection.release();
         if (!err) {
-            res.render('home', { rows });
+            res.render('index', { rows });
         } else {
             console.log(err);
         }
