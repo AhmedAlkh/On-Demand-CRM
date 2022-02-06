@@ -8,6 +8,9 @@ const mysql = require('mysql2');
 const app = express();
 //Port to listen//
 const PORT = process.env.PORT || 3001;
+//declare connection for jawsDB
+var connection = mysql.createConnection(process.env.JAWSDB_URL);
+
 
 require('dotenv').config();
 
@@ -30,13 +33,8 @@ app.set('view engine', 'hbs');
 
 //create a connection pool
 const pool = mysql.createPool({
-      connectionLimit: 100,
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NAME
-})
-
+      uri: process.env.JAWSDB_URL
+      })
 //connect to the database
 pool.getConnection((error, connection) => {
       if(error) throw error;

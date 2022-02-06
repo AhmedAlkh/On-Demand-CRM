@@ -2,12 +2,8 @@ const mysql = require("mysql2");
 
 // Connection Pool
 const pool = mysql.createPool({
-  connectionLimit: 100,
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-});
+uri: process.env.JAWSDB_URL
+})
 
 // View users
 exports.view = (req, res) => {
@@ -19,7 +15,7 @@ exports.view = (req, res) => {
     connection.query('SELECT * FROM customers', (err, rows) => {
         connection.release();
         if (!err) {
-            res.render('home', { rows });
+            res.render('index', { rows });
         } else {
             console.log(err);
         }
@@ -120,7 +116,7 @@ const { first_name, last_name, industry, job_title, website, email, phone_number
               connection.query('SELECT * FROM customers WHERE id = ?', [req.params.id], (err, rows) => {
                 connection.release();
                 if (!err) {
-                    res.render('edituser', { rows, alert: `${first_name} has been updated`});
+                    res.render('editUser', { rows, alert: `${first_name} has been updated`});
                 } else {
                     console.log(err);
                 }
@@ -148,7 +144,10 @@ exports.delete = (req,res) => {
       connection.query('DELETE FROM customers WHERE id = ?', [req.params.id], (err, rows) => {
         connection.release();
         if (!err) {
-            res.redirect('/');
+          connection.query('SELECT * FROM customers', (err, rows) => {
+            res.render('index', {rows});
+          })
+            
         } else {
             console.log(err);
         }
