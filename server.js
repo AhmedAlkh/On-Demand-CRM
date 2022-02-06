@@ -34,10 +34,10 @@ app.set('view engine', 'hbs');
 //create a connection pool
 const pool = mysql.createPool({
       connectionLimit: 100,
-      host: process.en,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      database: process.env.DB_NAME
+      host: "l0ebsc9jituxzmts.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+      user: o3jbsof69fg94bs8,
+      password: gqw33e8mhofjyexp,
+      database: wzn3hb0ra6xy1my8
 })
 
 //connect to the database
