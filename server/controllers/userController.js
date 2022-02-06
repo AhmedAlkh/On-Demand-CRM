@@ -12,13 +12,13 @@ exports.view = (req, res) => {
     console.log("Connected as ID " + connection.threadId);
 
     // User connection
-    connection.query('SELECT * FROM customers WHERE customers.id LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR industry LIKE ? OR job_title LIKE ? OR website LIKE ? OR email LIKE ? OR phone_number LIKE ? OR instagram LIKE? OR linkedin LIKE ? OR notes LIKE ?', ['%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%','%' + searchIt + '%'], (err, rows) => {
-      connection.release();
-      if (!err) {
-          res.render('index', { rows });
-      } else {
-          console.log(err);
-      }
+    connection.query('SELECT * FROM customers', (err, rows) => {
+        connection.release();
+        if (!err) {
+            res.render('index', { rows });
+        } else {
+            console.log(err);
+        }
 
         console.log('Data from user table: \n', rows);
     });
@@ -146,7 +146,7 @@ exports.delete = (req,res) => {
         if (!err) {
           connection.query('SELECT * FROM customers', (err, rows) => {
             res.render('index', {rows});
-          });
+          })
             
         } else {
             console.log(err);
